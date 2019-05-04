@@ -29,6 +29,18 @@ Use install_dependencies.sh to prepare.
 ```
 python3 kerasGANv8.py
 ```
+* kerasGANv8.py has a hard-coded variable for the directory to search for training images. The variable is named newdir, and defined on line 38. Change this variable to the location of your training images.
+
+* Change the options for x_dim and y_dim to match your training images.
+
+* Adjust the batch size and noise size to the speed at which you want to your model to learn. This is very dependent on how powerful your computer is. 
+
+* These files are intended for CPU training only.
+
+### Future Work
+
+* add CLI argument parser (for image directories and paramter options)
+* adapt for GPU calculations
 
 ## Authors
 
