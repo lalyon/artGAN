@@ -22,21 +22,20 @@ from matplotlib.image import imread
 from scipy.misc import imresize, imsave
 
 batch_size = 1
-noise_size = 32
-x_dim = 128
-y_dim = 128
+noise_size = 1
+x_dim = 64
+y_dim = 64
+ndf = 40
+ngf=160
 num_channels = 3
 learning_rate_discriminator = 0.0001
 learning_rate_generator = 0.0002
 opt = Adam(learning_rate_discriminator, 0.5)
-ndf = 40
-ngf = 160
-nc = 3
 
 dropout = 0.25
 is_training = True
 
-newdir = "../resizedImages/dogs128"
+newdir = "../../artGAN-master/resizedImages/landscape64"
 
 filepaths_new = []
 for dir, _, files in os.walk(newdir):
@@ -107,37 +106,36 @@ module = nn.SpatialConvolution(nInputPlane, nOutputPlane, kW, kH, [dW], [dH], [p
 def build_discriminator(reuse=None, dropout=dropout):
     momentum = 0.8
     with tf.variable_scope("discriminator", reuse=reuse):
-        discriminator = Sequential()
+        model = Sequential()
 
-        discriminator.add(Conv2D(ndf*2, input_shape=(x_dim, y_dim, num_channels), kernel_size=(4,4), strides=(2,2), padding='same'))
+        model.add(Conv2D(ndf, input_shape=(x_dim, y_dim, num_channels), kernel_size=4, strides=1, padding='same'))
+        model.add(LeakyReLU(alpha=0.2))
 
-        discriminator.add(LeakyReLU(alpha=0.2))
+        model.add(Conv2D(ndf*2, kernel_size=4, padding='same'))
+        model.add(BatchNormalization(momentum=momentum))
+        model.add(LeakyReLU(alpha=0.2))
 
-        discriminator.add(Conv2D(filters=ndf*4, kernel_size=(4,4), strides=(2,2), padding='same'))
-        discriminator.add(BatchNormalization())
-        discriminator.add(LeakyReLU(alpha=0.2))
+        model.add(Conv2D(ndf*4, kernel_size=4,padding='same'))
+        model.add(BatchNormalization(momentum=momentum))
+        model.add(LeakyReLU(alpha=0.2))
 
-        discriminator.add(Conv2D(filters=ndf*8, kernel_size=(4,4), strides=(2,2), padding='same'))
-        discriminator.add(BatchNormalization())
-        discriminator.add(LeakyReLU(alpha=0.2))
+        model.add(Conv2D(ndf*8, kernel_size=4,padding='same'))
+        model.add(BatchNormalization(momentum=momentum))
+        model.add(LeakyReLU(alpha=0.2))
 
-        discriminator.add(Conv2D(filters=ndf*16, kernel_size=(4,4), strides=(2,2), padding='same'))
-        discriminator.add(BatchNormalization())
-        discriminator.add(LeakyReLU(alpha=0.2))
+        model.add(Conv2D(ndf*16, kernel_size=4, padding='same'))
+        model.add(BatchNormalization(momentum=momentum))
+        model.add(LeakyReLU(alpha=0.2))
 
-        discriminator.add(Conv2D(filters=ndf*32, kernel_size=(4,4), strides=(2,2), padding='same'))
-        discriminator.add(BatchNormalization())
-        discriminator.add(LeakyReLU(alpha=0.2))
+        model.add(Conv2D(1, kernel_size=4, padding='same'))
 
-        discriminator.add(Conv2D(filters=ndf*64, kernel_size=(4,4)))
-        #discriminator.add(Activation('sigmoid'))
-        discriminator.add(Dense(128, activation='leakyRelu'))
-        discriminator.add(Dense(1, activation='sigmoid'))
+        model.add(Activation('sigmoid'))
+        #model.add(Reshape((x_dim, y_dim, num_channels)))
 
-        discriminator.summary()
+        model.summary()
 
         img = Input(shape=(x_dim, y_dim, num_channels))
-        validity = discriminator(img)
+        validity = model(img)
 
         return Model(img, validity)
 
@@ -145,29 +143,44 @@ def build_discriminator(reuse=None, dropout=dropout):
 def build_generator(dropout = dropout, reuse=None):
     momentum = 0.8
     with tf.variable_scope("generator", reuse = reuse):
-        generator = Sequential()
-        generator.add(Conv2DTranspose(input_shape=(x_dim, y_dim, num_channels), filters=ngf*16, kernel_size= (4,4), padding='same'))
-        generator.add(BatchNormalization())
-        generator.add(Activation('relu'))
-        generator.add(Conv2DTranspose(filters=ngf*8, kernel_size = (4,4), strides=(2,2), output_padding=(1,1), padding='same'))
-        generator.add(BatchNormalization())
-        generator.add(Activation('relu'))
-        generator.add(Conv2DTranspose(filters=ngf*4, kernel_size = (4,4), strides=(2,2), output_padding=(1,1), padding='same'))
-        generator.add(BatchNormalization())
-        generator.add(Activation('relu'))
-        generator.add(Conv2DTranspose(filters=ngf*2, kernel_size = (4,4), strides=(2,2), output_padding=(1,1), padding='same'))
-        generator.add(BatchNormalization())
-        generator.add(Activation('relu'))
-        generator.add(Conv2DTranspose(filters=nc, kernel_size = (4,4), strides=(2,2), output_padding=(1,1), padding='same'))
-        generator.add(Activation('tanh'))
+        model = Sequential()
+
+        model.add(Conv2DTranspose(ngf*8, input_shape=(x_dim, y_dim, num_channels), kernel_size=4, padding='same'))
+        #model.add(Conv2DTranspose(320, input_shape=(x_dim, y_dim, num_channels), strides=2, kernel_size=4))
+        model.add(BatchNormalization(momentum=0.8))
+        model.add(LeakyReLU(alpha=0.2))
+
+        model.add(Conv2DTranspose(ngf*4, kernel_size=4, padding='same'))
+        model.add(BatchNormalization(momentum=0.8))
+        model.add(LeakyReLU(alpha=0.2))
+
+        model.add(Conv2DTranspose(ngf*2, kernel_size=4, padding='same'))
+        model.add(BatchNormalization(momentum=0.8))
+        model.add(LeakyReLU(alpha=0.2))
+
+        model.add(Conv2DTranspose(ngf, kernel_size=4, padding='same'))
+        model.add(BatchNormalization(momentum=0.8))
+        model.add(LeakyReLU(alpha=0.2))
+
+        # model.add(Conv2DTranspose(ngf, kernel_size=4, padding='same'))
+        # model.add(BatchNormalization(momentum=0.8))
+        # model.add(LeakyReLU(alpha=0.2))
+
+        # model.add(Conv2DTranspose(40, kernel_size=4, padding='same'))
+        # model.add(BatchNormalization(momentum=0.8))
+        # model.add(LeakyReLU(alpha=0.2))
+
+        model.add(Conv2DTranspose(num_channels, kernel_size=4, padding='same'))
+
+        model.add(Activation('tanh'))
 
         #model.add(Dense(np.prod((x_dim, y_dim, num_channels)), activation='tanh'))
         #model.add(Reshape((x_dim, y_dim, num_channels)))
 
-        generator.summary()
+        model.summary()
 
         noise = Input(shape=(x_dim, y_dim, num_channels))
-        img = generator(noise)
+        img = model(noise)
 
         return Model(noise, img)
 
@@ -186,7 +199,7 @@ def train(generator, discriminator, combined, epochs, batch_size=64, save_interv
 
     for epoch in range(epochs):
         batch = next_batch(num=batch_size)
-        print("Batch shape:", batch.shape, "\nValid shape: ", valid.shape)
+
         #idx = np.random.randint(0, X_train.shape[0], batch_size)
         #imgs = X_train[idx]
 
@@ -207,9 +220,9 @@ def train(generator, discriminator, combined, epochs, batch_size=64, save_interv
 
 def save_images(epoch, generator):
 
-    rows, cols = 2,2
-    noise = np.random.uniform(0.0, 1.0, [rows*cols, noise_size]).astype(np.float32)
-
+    rows, cols = 1,1
+    #noise = np.random.uniform(0.0, 1.0, [rows*cols, noise_size]).astype(np.float32)
+    noise = np.random.normal(0.0, 1.0, [noise_size, x_dim, y_dim, num_channels]).astype(np.float32)
     generated_imgs = generator.predict(noise)
 
     #rescaling?
@@ -217,11 +230,15 @@ def save_images(epoch, generator):
 
     fig, axs = plt.subplots(rows, cols)
     cnt = 0
-    for i in range(rows):
-        for j in range(cols):
-            axs[i,j].imshow(generated_imgs[cnt, :,:,0])
-            axs[i,j].axis('off')
-            cnt += 1
+    if (noise_size == 1):
+        axs.imshow(generated_imgs[0])
+        axs.axis('off')
+    else:
+        for i in range(rows):
+            for j in range(cols):
+                axs[i,j].imshow(generated_imgs[cnt, :,:,0])
+                axs[i,j].axis('off')
+                cnt += 1
     fig.savefig("../generatedImgs/v13/keras%d.png" % epoch, bbox_inches="tight")
     plt.close()
 

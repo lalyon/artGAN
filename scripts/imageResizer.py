@@ -3,7 +3,7 @@ from matplotlib.image import imread
 from scipy.misc import imresize, imsave
 
 #file path vars
-parent_dir_1 = "../originalImages/Images"
+parent_dir_1 = "../../art-DCGAN-master/wiki/landscape"
 parent_dir_2 = "dataset_updated_2"
 sub_dir_1 = "training_set"
 sub_dir_2 = "validation_set"
@@ -12,11 +12,11 @@ sub_sub_dir_2 = "engraving"
 sub_sub_dir_3 = "iconography"
 sub_sub_dir_4 = "painting"
 sub_sub_dir_5 = "sculpture"
-newdir = "../resizedImages/dogs128"
+newdir = "../resizedImages/landscape64"
 
-x_dim = 128
+x_dim = 64
 y_dim = x_dim
-print(parent_dir_1)
+print("Cropping images in ", parent_dir_1)
 
 filepaths = []
 for dir, _, files in os.walk(parent_dir_1):

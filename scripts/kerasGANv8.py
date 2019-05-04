@@ -35,7 +35,7 @@ opt = Adam(learning_rate_discriminator, 0.5)
 dropout = 0.25
 is_training = True
 
-newdir = "../../art-DCGAN-master/dogs64"
+newdir = "../../artGAN-master/resizedImages/landscape64"
 
 filepaths_new = []
 for dir, _, files in os.walk(newdir):
@@ -48,12 +48,18 @@ for dir, _, files in os.walk(newdir):
 
 def next_batch(num=64, data=filepaths_new):
 
-    idx = np.arange(0, len(data))
-    np.random.shuffle(idx)
-    idx = idx[:num]
-    data_shuffle = [imread(data[i]) for i in idx]
-    shuffled = np.asarray(data_shuffle)
-
+    try:
+        idx = np.arange(0, len(data))
+        np.random.shuffle(idx)
+        idx = idx[:num]
+        data_shuffle = [imread(data[i]) for i in idx]
+        shuffled = np.asarray(data_shuffle)
+    except:
+        idx = np.arange(0, len(data))
+        np.random.shuffle(idx)
+        idx = idx[:num]
+        data_shuffle = [imread(data[i]) for i in idx]
+        shuffled = np.asarray(data_shuffle)
 
     return shuffled
 
@@ -123,9 +129,9 @@ def build_discriminator(reuse=None, dropout=dropout):
         model.add(BatchNormalization(momentum=momentum))
         model.add(LeakyReLU(alpha=0.2))
 
-        model.add(Conv2D(ndf*16, kernel_size=4, padding='same'))
-        model.add(BatchNormalization(momentum=momentum))
-        model.add(LeakyReLU(alpha=0.2))
+        # model.add(Conv2D(ndf*16, kernel_size=4, padding='same'))
+        # model.add(BatchNormalization(momentum=momentum))
+        # model.add(LeakyReLU(alpha=0.2))
 
         model.add(Conv2D(1, kernel_size=4, padding='same'))
 
@@ -145,12 +151,12 @@ def build_generator(dropout = dropout, reuse=None):
     with tf.variable_scope("generator", reuse = reuse):
         model = Sequential()
 
-        model.add(Conv2DTranspose(ngf*16, input_shape=(x_dim, y_dim, num_channels), kernel_size=4, padding='same'))
-        #model.add(Conv2DTranspose(320, input_shape=(x_dim, y_dim, num_channels), strides=2, kernel_size=4))
-        model.add(BatchNormalization(momentum=0.8))
-        model.add(LeakyReLU(alpha=0.2))
+        # model.add(Conv2DTranspose(ngf*16, input_shape=(x_dim, y_dim, num_channels), kernel_size=4, padding='same'))
+        # #model.add(Conv2DTranspose(320, input_shape=(x_dim, y_dim, num_channels), strides=2, kernel_size=4))
+        # model.add(BatchNormalization(momentum=0.8))
+        # model.add(LeakyReLU(alpha=0.2))
 
-        model.add(Conv2DTranspose(ngf*8, kernel_size=4, padding='same'))
+        model.add(Conv2DTranspose(ngf*8, input_shape=(x_dim, y_dim, num_channels), kernel_size=4, padding='same'))
         model.add(BatchNormalization(momentum=0.8))
         model.add(LeakyReLU(alpha=0.2))
 
@@ -230,12 +236,16 @@ def save_images(epoch, generator):
 
     fig, axs = plt.subplots(rows, cols)
     cnt = 0
-    for i in range(rows):
-        for j in range(cols):
-            axs[i,j].imshow(generated_imgs[cnt, :,:,0])
-            axs[i,j].axis('off')
-            cnt += 1
-    fig.savefig("../generatedImgs/v12/keras%d.png" % epoch, bbox_inches="tight")
+    if (noise_size == 1):
+        axs.imshow(generated_imgs[0])
+        axs.axis('off')
+    else:
+        for i in range(rows):
+            for j in range(cols):
+                axs[i,j].imshow(generated_imgs[cnt, :,:,0])
+                axs[i,j].axis('off')
+                cnt += 1
+    fig.savefig("../generatedImgs/v17/keras%d.png" % epoch, bbox_inches="tight")
     plt.close()
 
 
@@ -257,3 +267,4 @@ combinedModel = Model(noiseZ, validity)
 combinedModel.compile(loss='binary_crossentropy', optimizer=opt)
 
 train(generator, discriminator, combinedModel, epochs=50000, batch_size=batch_size, save_interval=10)
+kerasGAN
