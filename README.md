@@ -54,17 +54,24 @@ Use install_dependencies.sh to prepare.
 ```
 python3 kerasGANv8.py
 ```
-* kerasGANv8.py has a hard-coded variable for the directory to search for training images. The variable is named newdir, and defined on line 38. Change this variable to the location of your training images.
 
-* Change the options for x_dim and y_dim to match your training images.
+* Change the options for x_dim, y_dim, trainingDir, and outputDir to match your training images and desired output location.
 
 * Adjust the batch size and noise size to the speed at which you want to your model to learn. This is very dependent on how powerful your computer is. 
 
 * These files are intended for CPU training only.
 
+### Tips
+* For images with dimensions 256x256, having ngf=100 and ndf=15 has been optimal.
+* For images with dimensions 128x128 or 64x64, having ngf=160 and ndf=20 to 40 has been optimal.
+
+### Examples of output images and their training periods
+#### 
+
+!(readmeImages/gifs/MNIST.gif)
+
 ### Future Work
 
-* add CLI argument parser (for image directories and paramter options)
 * adapt for GPU calculations
 
 ## Authors
