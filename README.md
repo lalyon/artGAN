@@ -110,7 +110,7 @@ python3 kerasGANv8.py
 ## Summary of Results
 My homemade revision of the neural network sequential structure that [Soumith Chintala](https://github.com/soumith/dcgan.torch) developed failed to produce high-quality images. I was able to get interesting results, but I would not classify the images my code generated as "artwork". 
 
-The slightly [modified version](scripts/256mainv2.lua) of [Barrat's code](https://github.com/robbiebarrat/art-DCGAN) did produce cool results. The [64x64px generated landscapes](readmeImages/stills/256mainv2Epoch54.jpg) came out [cool.](readmeImages/gifs/256mainv2.gif). The [256x256px generated portraits](readmeImages/stills/portrait256main.jpg) also came out [cool.](readmeImages/gifs/portrait256main.gif) 
+The slightly [modified version](scripts/256mainv2.lua) of [Barrat's code](https://github.com/robbiebarrat/art-DCGAN) did produce cool results. The [64x64px generated landscapes](readmeImages/stills/256mainv2Epoch54.jpg) came out [cool.](readmeImages/gifs/256mainv2.gif) The [256x256px generated portraits](readmeImages/stills/portrait256main.jpg) also came out [cool.](readmeImages/gifs/portrait256main.gif) 
 
 I am hoping to continue work on this, and eventually produce realistic artwork with my own revisions of [Robbie Barrat's](https://github.com/robbiebarrat/art-DCGAN) and [Soumith Chintala's](https://github.com/soumith/dcgan.torch) code.
 
