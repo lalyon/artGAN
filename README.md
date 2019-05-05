@@ -69,8 +69,19 @@ python3 kerasGANv8.py
 #### MNIST Training
 
 ![MNIST Digits Training](readmeImages/gifs/MNIST.gif)
-#### MNIST Final Output
+#### MNIST Final Output - 2900 training epochs
 ![MNIST Final Output](readmeImages/stills/MNISTEpoch2900.png)
+
+#### 128x128px Paintings Training
+![gan128Paintings Training](readmeImages/gifs/gan128Paintings.gif)
+#### 128x128px Paintings Final Output - 9300 training epochs
+![gan128Paintings Output](readmeImages/stills/gan128PaintingsEpoch9300.png)
+
+#### 256x256px Impressionist Training
+![gan256Impres Training](readmeImages/gifs/gan256Impres.gif)
+#### 256x256px Impressionist Training - 14740 training epochs
+![gan256Impres Final Output](readmeImages/stills/gan256ImpresEpoch14740.png)
+
 
 ### Future Work
 
