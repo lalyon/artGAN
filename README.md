@@ -66,9 +66,11 @@ python3 kerasGANv8.py
 * For images with dimensions 128x128 or 64x64, having ngf=160 and ndf=20 to 40 has been optimal.
 
 ### Examples of output images and their training periods
-#### 
+#### MNIST Training
 
 ![MNIST Digits Training](readmeImages/gifs/MNIST.gif)
+#### MNIST Final Output
+![MNIST Final Output](readmeImages/stills/MNISTEpcch2900.png)
 
 ### Future Work
 
