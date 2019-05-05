@@ -87,11 +87,6 @@ python3 kerasGANv8.py
 #### 512x512px Paintings Final Output - 510 training epochs
 ![gan512Paintings Final Output](readmeImages/stills/gan512Epoch510.png)
 
-#### 512x512px Paintings Training
-![gan512Paintings Training](readmeImages/gifs/gan512.gif)
-#### 512x512px Paintings Final Output - 510 training epochs
-![gan512Paintings Final Output](readmeImages/stills/gan512Epoch510.png)
-
 #### 256x256px Chuck Close Artwork Training
 ![ganChuck256 Training](readmeImages/gifs/ganChuck256.gif)
 #### 256x256px Chuck Close Final Output - 1200 training epochs
@@ -102,6 +97,10 @@ python3 kerasGANv8.py
 #### kerasGANv1 Final Output - 4900 training epochs
 ![kerasGANv1 Final Output](readmeImages/stills/kerasGANv1-2Epoch4900.png)
 
+#### Output from emulating work by [Robbie Barrat](https://github.com/robbiebarrat/art-DCGAN) and [Soumith Chintala](https://github.com/soumith/dcgan.torch)
+![256mainv2.lua Training](readmeImages/gifs/256mainv2.gif)
+#### Final Output - 54 training epochs
+![256mainv2 Fianl Output](readmeImages/stills/256mainv2Epoch54.jpg)
 
 ### Future Work
 
