@@ -7,7 +7,7 @@ Each python script can be run from the command line. Python 3 is recommended.
 
 ### Dependencies
 
-
+[readmeImages/256mainv2.gif]
 ```
 tensorflow
 keras
