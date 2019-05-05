@@ -79,8 +79,28 @@ python3 kerasGANv8.py
 
 #### 256x256px Impressionist Training
 ![gan256Impres Training](readmeImages/gifs/gan256Impres.gif)
-#### 256x256px Impressionist Training - 14740 training epochs
+#### 256x256px Impressionist Final Output - 14740 training epochs
 ![gan256Impres Final Output](readmeImages/stills/gan256ImpresEpoch14740.png)
+
+#### 512x512px Paintings Training
+![gan512Paintings Training](readmeImages/gifs/gan512.gif)
+#### 512x512px Paintings Final Output - 510 training epochs
+![gan512Paintings Final Output](readmeImages/stills/gan512Epoch510.png)
+
+#### 512x512px Paintings Training
+![gan512Paintings Training](readmeImages/gifs/gan512.gif)
+#### 512x512px Paintings Final Output - 510 training epochs
+![gan512Paintings Final Output](readmeImages/stills/gan512Epoch510.png)
+
+#### 256x256px Chuck Close Artwork Training
+![ganChuck256 Training](readmeImages/gifs/ganChuck256.gif)
+#### 256x256px Chuck Close Final Output - 1200 training epochs
+![ganChuck256 Final Output](readmeImages/stills/ganChuck256Epoch1200.png)
+
+#### kerasGANv1 Training
+![kerasGanv1 Training](readmeImages/gifs/kerasGANv1-2.gif)
+#### kerasGANv1 Final Output - 4900 training epochs
+![kerasGANv1 Final Output](readmeImages/stills/kerasGANv1-2Epoch4900.png)
 
 
 ### Future Work
