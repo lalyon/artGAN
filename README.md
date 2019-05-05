@@ -102,6 +102,11 @@ python3 kerasGANv8.py
 #### Final Output - 54 training epochs
 ![256mainv2 Fianl Output](readmeImages/stills/256mainv2Epoch54.jpg)
 
+#### More output from [my adaptation of main.lua](scripts/256mainv2.lua)
+![256mainv2.lua Portrait 256 Training](readmeImages/gifs/portrait256main.gif)
+#### Final Output - 1 training epoch (3602 training steps)
+![256mainv2.lua Final Output](readmeImages/stills/portrait256main.jpg)
+
 ### Future Work
 
 * adapt for GPU calculations
