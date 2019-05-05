@@ -70,7 +70,7 @@ python3 kerasGANv8.py
 
 ![MNIST Digits Training](readmeImages/gifs/MNIST.gif)
 #### MNIST Final Output
-![MNIST Final Output](readmeImages/stills/MNISTEpcch2900.png)
+![MNIST Final Output](readmeImages/stills/MNISTEpoch2900.png)
 
 ### Future Work
 
