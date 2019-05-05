@@ -3,7 +3,7 @@ Keras-based implementation of a Deep Convolutional Generative Adversarial Networ
 
 ## Getting Started
 
-kerasGANv8.py supports command line arguments.
+[kerasGANv8.py](scripts/kerasGANv8.py) supports command line arguments.
 
 ```
 usage: kerasGANv8.py [-h] --batchSize BATCHSIZE [--noiseSize NOISESIZE]
@@ -43,7 +43,7 @@ scipy
 
 ### Installing
 
-Use install_dependencies.sh to prepare.
+Use [install_dependencies.sh](scrips/install_dependencies.sh) to prepare.
 
 ```
 ./install_dependencies.sh
@@ -66,38 +66,38 @@ python3 kerasGANv8.py
 * For images with dimensions 128x128 or 64x64, having ngf=160 and ndf=20 to 40 has been optimal.
 
 ### Examples of output images and their training periods
-#### MNIST Training
+#### [MNIST](scripts/gan128MNIST.py) Training
 
 ![MNIST Digits Training](readmeImages/gifs/MNIST.gif)
 #### MNIST Final Output - 2900 training epochs
 ![MNIST Final Output](readmeImages/stills/MNISTEpoch2900.png)
 
-#### 128x128px Paintings Training
+#### [128x128px Paintings](scripts/gan128Paintings.py) Training
 ![gan128Paintings Training](readmeImages/gifs/gan128Paintings.gif)
 #### 128x128px Paintings Final Output - 9300 training epochs
 ![gan128Paintings Output](readmeImages/stills/gan128PaintingsEpoch9300.png)
 
-#### 256x256px Impressionist Training
+#### [256x256px Impressionist](scripts/gan256Impres.py) Training
 ![gan256Impres Training](readmeImages/gifs/gan256Impres.gif)
 #### 256x256px Impressionist Final Output - 14740 training epochs
 ![gan256Impres Final Output](readmeImages/stills/gan256ImpresEpoch14740.png)
 
-#### 512x512px Paintings Training
+#### [512x512px Paintings](scripts/gan512.py) Training
 ![gan512Paintings Training](readmeImages/gifs/gan512.gif)
 #### 512x512px Paintings Final Output - 510 training epochs
 ![gan512Paintings Final Output](readmeImages/stills/gan512Epoch510.png)
 
-#### 256x256px Chuck Close Artwork Training
+#### [256x256px Chuck Close](scripts/ganChuck256.py) Artwork Training
 ![ganChuck256 Training](readmeImages/gifs/ganChuck256.gif)
 #### 256x256px Chuck Close Final Output - 1200 training epochs
 ![ganChuck256 Final Output](readmeImages/stills/ganChuck256Epoch1200.png)
 
-#### kerasGANv1 Training
+#### [kerasGANv1](scripts/kerasGAN.py) Training
 ![kerasGanv1 Training](readmeImages/gifs/kerasGANv1-2.gif)
 #### kerasGANv1 Final Output - 4900 training epochs
 ![kerasGANv1 Final Output](readmeImages/stills/kerasGANv1-2Epoch4900.png)
 
-#### Output from emulating work by [Robbie Barrat](https://github.com/robbiebarrat/art-DCGAN) and [Soumith Chintala](https://github.com/soumith/dcgan.torch)
+#### Output from [emulating work](scripts/256mainv2.lua) by [Robbie Barrat](https://github.com/robbiebarrat/art-DCGAN) and [Soumith Chintala](https://github.com/soumith/dcgan.torch)
 ![256mainv2.lua Training](readmeImages/gifs/256mainv2.gif)
 #### Final Output - 54 training epochs
 ![256mainv2 Fianl Output](readmeImages/stills/256mainv2Epoch54.jpg)
