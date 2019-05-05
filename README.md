@@ -3,11 +3,36 @@ Keras-based implementation of a Deep Convolutional Generative Adversarial Networ
 
 ## Getting Started
 
-Each python script can be run from the command line. Python 3 is recommended. 
+kerasGANv8.py supports command line arguments.
+
+```
+usage: kerasGANv8.py [-h] --batchSize BATCHSIZE [--noiseSize NOISESIZE]
+                     [--yDim YDIM] [--xDim XDIM] [--outputDir OUTPUTDIR]
+                     [--trainingDir TRAININGDIR]
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+required arguments:
+  --batchSize BATCHSIZE
+                        batch size
+  --noiseSize NOISESIZE
+                        size of noise input
+  --yDim YDIM           input y dimension
+  --xDim XDIM           input x dimension
+  --outputDir OUTPUTDIR
+                        where to save generated imgs
+  --trainingDir TRAININGDIR
+                        training imgs directory
+```
+If training on a CPU, I've found the following options productive:
+```
+python3 kerasGANv8.py --xDim=64 --yDim=64 --batchSize=4 --noiseSize=4 --outputDir=[your/desired/output/directory] --trainingDir=[directory/with/training/imgs]
+```
+
 
 ### Dependencies
 
-![Alt text](readmeImages/256mainv2.gif)
 ```
 tensorflow
 keras
