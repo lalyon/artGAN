@@ -68,7 +68,7 @@ python3 kerasGANv8.py
 ### Examples of output images and their training periods
 #### 
 
-!(readmeImages/gifs/MNIST.gif)
+![MNIST Digits Training](readmeImages/gifs/MNIST.gif)
 
 ### Future Work
 
