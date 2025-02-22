@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/868b8f8fd1a34f6db3aa805cc4d57208/artifacts
+end_time: 1739014837781
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 868b8f8fd1a34f6db3aa805cc4d57208
+run_name: persistent-snipe-128
+run_uuid: 868b8f8fd1a34f6db3aa805cc4d57208
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739014827120
+status: 4
+tags: []
+user_id: lucaslyon

@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/94b7c548263e49b9a9d615b95c101466/artifacts
+end_time: 1739015780035
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 94b7c548263e49b9a9d615b95c101466
+run_name: dazzling-loon-69
+run_uuid: 94b7c548263e49b9a9d615b95c101466
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739015591327
+status: 4
+tags: []
+user_id: lucaslyon

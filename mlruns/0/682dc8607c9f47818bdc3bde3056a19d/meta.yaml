@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/682dc8607c9f47818bdc3bde3056a19d/artifacts
+end_time: 1739015084035
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 682dc8607c9f47818bdc3bde3056a19d
+run_name: monumental-worm-284
+run_uuid: 682dc8607c9f47818bdc3bde3056a19d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739015073829
+status: 4
+tags: []
+user_id: lucaslyon

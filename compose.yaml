@@ -1,0 +1,58 @@
+services:
+  gan-trainer:
+    build: ./gan-trainer
+    image: gan-trainer:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '8'
+          memory: 6G
+    # Mount EFS volumes instead of local directories
+    volumes:
+      - generatedImgs:/app/generatedImgs
+      - resizedImages:/app/resizedImages
+      - dataset:/app/dataset
+    ports:
+      - "8888:8888"
+
+  data-collector:
+    build:
+      context: ./data-collector
+      dockerfile: Dockerfile_data_collector
+    image: data-collector:latest
+    # Mount the same EFS dataset volume
+    volumes:
+      - dataset:/app/dataset
+    # command: sleep infinity
+    # depends_on:
+    #   - (if needed)
+
+  image-resizer:
+    build: ./image-resizer
+    image: image-resizer:latest
+    volumes:
+      - resizedImages:/app/resizedImages
+      - dataset:/app/dataset
+    # depends_on:
+    #   - data-collector
+
+# Define named EFS volumes. The 'x-aws-persistent-storage' key instructs
+# the Docker ECS integration to create (or reuse) an EFS filesystem for each.
+volumes:
+  generatedImgs:
+    x-aws-persistent-storage:
+      # By default, Docker ECS will create an EFS filesystem if none exists.
+      # You can add 'size' or an explicit 'name' if you want more control.
+      # size: 20GiB
+      name: generatedImgs
+      enabled: true
+
+  resizedImages:
+    x-aws-persistent-storage:
+      name: resizedImages
+      enabled: true
+
+  dataset:
+    x-aws-persistent-storage:
+      name: dataset
+      enabled: true

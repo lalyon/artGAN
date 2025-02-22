@@ -18,8 +18,8 @@ required arguments:
                         batch size
   --noiseSize NOISESIZE
                         size of noise input
-  --yDim YDIM           input y dimension
-  --xDim XDIM           input x dimension
+  --yDim YDIM          input y dimension
+  --xDim XDIM          input x dimension
   --outputDir OUTPUTDIR
                         where to save generated imgs
   --trainingDir TRAININGDIR
@@ -30,6 +30,74 @@ If training on a CPU, I've found the following options productive:
 python3 kerasGANv8.py --xDim=64 --yDim=64 --batchSize=4 --noiseSize=4 --outputDir=[your/desired/output/directory] --trainingDir=[directory/with/training/imgs]
 ```
 
+## AWS Deployment
+
+This project is containerized and ready for deployment on AWS. Follow these steps to deploy:
+
+### Prerequisites
+1. AWS Account with appropriate permissions
+2. AWS CLI installed and configured
+3. Docker and Docker Compose installed locally
+4. AWS ECS CLI installed
+
+### Deployment Steps
+
+1. **Set up EFS Storage**
+```bash
+# Create EFS filesystem for persistent storage
+aws efs create-file-system --performance-mode generalPurpose --tags Key=Name,Value=artgan-storage
+
+# Note the FileSystemId from the output
+aws efs create-mount-target --file-system-id [FileSystemId] --subnet-id [SubnetId] --security-groups [SecurityGroupId]
+```
+
+2. **Configure ECS Cluster**
+```bash
+# Create ECS cluster
+aws ecs create-cluster --cluster-name artgan-cluster
+
+# Create task definition using the compose.yaml file
+ecs-cli compose --project-name artgan create
+```
+
+3. **Deploy Services**
+```bash
+# Deploy the services to ECS
+ecs-cli compose --project-name artgan service up
+```
+
+### Resource Configuration
+
+The services are configured with the following resources:
+
+- **gan-trainer:**
+  - CPU: 8 cores
+  - Memory: 6GB
+  - Volumes: generatedImgs, resizedImages, dataset
+
+- **data-collector:**
+  - Volumes: dataset
+
+- **image-resizer:**
+  - Volumes: resizedImages, dataset
+
+### Monitoring and Management
+
+1. Monitor the deployment:
+```bash
+aws ecs list-services --cluster artgan-cluster
+aws ecs describe-services --cluster artgan-cluster --services [ServiceName]
+```
+
+2. View logs:
+```bash
+aws logs get-log-events --log-group-name /ecs/artgan --log-stream-name [LogStreamName]
+```
+
+3. Scale services:
+```bash
+aws ecs update-service --cluster artgan-cluster --service [ServiceName] --desired-count [Count]
+```
 
 ### Dependencies
 
@@ -52,7 +120,7 @@ Use [install_dependencies.sh](scrips/install_dependencies.sh) to prepare.
 ### Usage
 
 ```
-python3 kerasGANv8.py
+python3 kerasGANv8.py --xDim=64 --yDim=64 --batchSize=4 --noiseSize=4 --outputDir=/app/generatedImgsv2 --trainingDir=/app/dataset
 ```
 
 * Change the options for x_dim, y_dim, trainingDir, and outputDir to match your training images and desired output location.
@@ -128,7 +196,4 @@ Shoutout to the following people, whose code was invaluable while developing the
 
 * [Robbie Barrat](https://github.com/robbiebarrat/art-DCGAN)
 * [Soumith Chintala](https://github.com/soumith/dcgan.torch)
-* [Felix Mohr](https://github.com/FelixMohr/Deep-learning-with-Python/blob/master/DCGAN-MNIST.ipynb). 
-
-
-
+* [Felix Mohr](https://github.com/FelixMohr/Deep-learning-with-Python/blob/master/DCGAN-MNIST.ipynb)

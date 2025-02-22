@@ -1,0 +1,3 @@
+requests
+pyoai
+BeautifulSoup4

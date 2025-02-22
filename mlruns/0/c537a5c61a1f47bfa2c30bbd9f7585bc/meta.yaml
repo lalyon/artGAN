@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/c537a5c61a1f47bfa2c30bbd9f7585bc/artifacts
+end_time: 1739015031828
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c537a5c61a1f47bfa2c30bbd9f7585bc
+run_name: capricious-chimp-593
+run_uuid: c537a5c61a1f47bfa2c30bbd9f7585bc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739015021629
+status: 4
+tags: []
+user_id: lucaslyon

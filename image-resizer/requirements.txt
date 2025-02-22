@@ -1,0 +1,6 @@
+tensorflow
+keras
+numpy
+matplotlib
+scipy
+Pillow # Might be needed for image handling
